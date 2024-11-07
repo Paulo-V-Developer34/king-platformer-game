@@ -26,9 +26,10 @@ class Player {
     
     update() {
         this.position.y += this.velocity.y //ficou ocorrendo um erro porque eu estava colocando this.velocity ao invés de especificar o y, por isso typescript é melhor ;-;, só não estou utilizando-o porque não quero ter que ficar criando interfaces
+        this.sides.bottom = this.position.y + this.looklike.height//é prefirível atualizar esse valor independentemente do aumento da velocidade y pois ela pode mudar com a x também
+        
         if(this.sides.bottom + this.velocity.y < canvas.height) {//temos que considerar a velocity também para que o cubo não fique bugado e atravesse objetos
             this.velocity.y++
-            this.sides.bottom = this.position.y + this.looklike.height
         } else {
             this.velocity.y = 0//redefinindo a velocidade
         }
