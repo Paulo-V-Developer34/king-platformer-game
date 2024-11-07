@@ -9,12 +9,35 @@ canvas.height = 64 * 9
 
 const player = new Player()
 
+//teclas que o usuário pode pressionar
+const keys = {
+    w: {
+        pressed: false
+    },
+    a: {
+        pressed: false
+    },
+    d: {
+        pressed: false
+    },
+}
+
 function animate() {
     window.requestAnimationFrame(animate)
     console.log("go")
     c.fillStyle = 'white' //esses comandos irão criar algum elemento no canvas
     c.fillRect(0, 0, canvas.width, canvas.height) //posição do elemento
 
+    //vai verificar a tecla pressionada
+    if(keys.d.pressed){
+        player.velocity.x = 4
+    } else if(keys.a.pressed) {
+        player.velocity.x = -4
+    } else {
+        player.velocity.x = 0
+    }
+
+    //desenhando o player
     player.draw()
     player.update()
 }
@@ -27,7 +50,24 @@ window.addEventListener('keydown', (event)=>{
             if(player.velocity.y === 0) {
                 player.velocity.y = -20
             }    
+            break;
+        case 'd':
+            keys.d.pressed = true    
+            break;
+        case 'a':
+            keys.a.pressed = true 
+            break;
+    }
+})
 
+//caso a tecla não esteja pressionada
+window.addEventListener('keyup', (event)=>{
+    switch (event.key) {
+        case 'd':
+            keys.d.pressed = false    
+            break;
+        case 'a':
+            keys.a.pressed = false
             break;
     }
 })
